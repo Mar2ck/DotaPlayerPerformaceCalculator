@@ -10,13 +10,26 @@ import time
 # PyPi modules
 import requests
 
-matchListFileArray = []
-
 PROJECT_DIR = pathlib.Path(os.path.abspath(__file__)).parent.parent
 DATA_DIR = PROJECT_DIR.joinpath("data")
+
+matchListFileArray = []
+matchListFolderArray = []
 for file in DATA_DIR.iterdir():
     if file.is_file():
         matchListFileArray.append(file)
+    elif file.is_dir():
+        matchListFolderArray.append(file)
+
+
+def ListAvailableMatches():
+    matchArray = []
+    for matchListFolder in matchListFolderArray:
+        for matchFile in matchListFolder.iterdir():
+            if matchFile.is_file():
+                matchArray.append(matchFile)
+
+    return matchArray
 
 
 def _DownloadMatchData():
@@ -59,4 +72,5 @@ def _DownloadMatchData():
 
 
 if __name__ == "__main__":
-    _DownloadMatchData()
+    # _DownloadMatchData()
+    print(len(ListAvailableMatches()))

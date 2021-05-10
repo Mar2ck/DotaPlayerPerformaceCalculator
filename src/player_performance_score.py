@@ -10,7 +10,7 @@ import data_scraper
 def GetProbability(ratingA, ratingB):
         return 1/(1+10**((ratingB - ratingA)/400)); ##if the difference is 400 the chance of winning is 10x high
 
-def UpdateRaings(ratingA, ratingB, winner):
+def CalculateRatingChange(ratingA, ratingB, winner):
     eloConstant = 32 ##Can be changed
     pA = GetProbability(ratingA, ratingB)
     pB = 1 - pA
@@ -21,5 +21,6 @@ def UpdateRaings(ratingA, ratingB, winner):
     else:
         ratingB += change
         ratingA -= change
+    return ratingA, ratingB
 
 print(len(data_scraper.ListAllPlayerIDs()))

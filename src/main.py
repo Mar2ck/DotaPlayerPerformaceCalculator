@@ -16,10 +16,10 @@ def DisplayMenuOptions():
 
 
 def SetUpMatch():
-
+    pass
 
 def ListPlayers():
-
+    pass
 
 def SearchPlayers(array, item):
     if (len(array) == 0):

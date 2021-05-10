@@ -21,15 +21,30 @@ for file in DATA_DIR.iterdir():
     elif file.is_dir():
         matchListFolderArray.append(file)
 
+# List all available matches
+matchFilePathArray = []
+for matchListFolder in matchListFolderArray:
+    for matchFile in matchListFolder.iterdir():
+        if matchFile.is_file():
+            matchFilePathArray.append(matchFile)
 
-def ListAvailableMatches():
-    matchArray = []
-    for matchListFolder in matchListFolderArray:
-        for matchFile in matchListFolder.iterdir():
-            if matchFile.is_file():
-                matchArray.append(matchFile)
+# Load all matches
+matchFileArray = []
+print("Loading match files...")
+for matchFile in matchFilePathArray:
+    matchFileArray.append(json.load(open(matchFile, "r", encoding='utf-8')))
+print("Loaded {} matches total".format(len(matchFileArray)))
 
-    return matchArray
+
+def ListAllPlayerIDs():
+    PlayerIDArray = []
+    for match in matchFileArray:
+        for player in match["players"]:
+            if player["account_id"] in PlayerIDArray:
+                continue
+            else:
+                PlayerIDArray.append(player["account_id"])
+    return PlayerIDArray
 
 
 def _DownloadMatchData():
@@ -72,5 +87,4 @@ def _DownloadMatchData():
 
 
 if __name__ == "__main__":
-    # _DownloadMatchData()
-    print(len(ListAvailableMatches()))
+    _DownloadMatchData()

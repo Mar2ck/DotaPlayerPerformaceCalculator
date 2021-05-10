@@ -29,22 +29,32 @@ for matchListFolder in matchListFolderArray:
             matchFilePathArray.append(matchFile)
 
 # Load all matches
-matchFileArray = []
+matchArray = []
 print("Loading match files...")
 for matchFile in matchFilePathArray:
-    matchFileArray.append(json.load(open(matchFile, "r", encoding='utf-8')))
-print("Loaded {} matches total".format(len(matchFileArray)))
+    matchArray.append(json.load(open(matchFile, "r", encoding='utf-8')))
+print("Loaded {} matches total".format(len(matchArray)))
 
 
 def ListAllPlayerIDs():
     PlayerIDArray = []
-    for match in matchFileArray:
+    for match in matchArray:
         for player in match["players"]:
             if player["account_id"] in PlayerIDArray:
                 continue
             else:
                 PlayerIDArray.append(player["account_id"])
     return PlayerIDArray
+
+
+def ListMatchesFromPlayerID(player_id):
+    matchArraySelected = []
+    for match in matchArray:
+        for player in match["players"]:
+            if player["account_id"] == player_id:
+                matchArraySelected.append(match)
+                break
+    return matchArraySelected
 
 
 def _DownloadMatchData():

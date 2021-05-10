@@ -7,15 +7,17 @@ import json
 # Local modules
 import data_scraper
 
+
 def GetProbability(ratingA, ratingB):
-        return 1/(1+10**((ratingB - ratingA)/400)); ##if the difference is 400 the chance of winning is 10x high
+    return 1/(1+10**((ratingB - ratingA)/400))  # if the difference is 400 the chance of winning is 10x high
+
 
 def CalculateRatingChange(ratingA, ratingB, winner):
-    eloConstant = 32 ##Can be changed
+    eloConstant = 32  # Can be changed
     pA = GetProbability(ratingA, ratingB)
     pB = 1 - pA
-    change = int(round(eloConstant * (1 - pA)), 0) ##Change is alwways an int
-    if (winner == 1):
+    change = int(round(eloConstant * (1 - pA)), 0)  # Change is alwways an int
+    if winner == 1:
         ratingA += change
         ratingB -= change
     else:
@@ -23,4 +25,8 @@ def CalculateRatingChange(ratingA, ratingB, winner):
         ratingA -= change
     return ratingA, ratingB
 
-print(len(data_scraper.ListAllPlayerIDs()))
+
+playerMatchFrequency = {}
+for playerid in data_scraper.ListAllPlayerIDs():
+    playerMatchFrequency[playerid] = len(data_scraper.ListMatchesFromPlayerID(playerid))
+print(playerMatchFrequency)

@@ -26,7 +26,4 @@ def CalculatePPSChange(ppsA, ppsB, winner):
     return ppsA, ppsB
 
 
-playerMatchFrequency = {}
-for playerid in data_scraper.ListAllPlayerIDs():
-    playerMatchFrequency[playerid] = len(data_scraper.ListMatchesFromPlayerID(playerid))
-print(playerMatchFrequency)
+print(data_scraper.DictPlayerInfo(19672354))

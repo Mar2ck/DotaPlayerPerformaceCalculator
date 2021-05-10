@@ -57,6 +57,23 @@ def ListMatchesFromPlayerID(player_id):
     return matchArraySelected
 
 
+def DictPlayerInfo(player_id):
+    playerMatches = ListMatchesFromPlayerID(player_id)
+    for player in playerMatches[0]["players"]:
+        if player["account_id"] == player_id:
+            playerName = player["name"]
+            break
+    playerInfo = {"player_id": player_id,
+                  "name": playerName,
+                  "matchCount": len(playerMatches)
+                  }
+    return playerInfo
+
+
+def DictPlayerMatchStats(player_id, match_id):
+    pass
+
+
 def _DownloadMatchData():
     # List available match lists
     for fileId in range(len(matchListFileArray)):

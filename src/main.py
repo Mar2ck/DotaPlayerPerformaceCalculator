@@ -16,7 +16,40 @@ def DisplayMenuOptions():
 
 
 def SetUpMatch():
-    pass
+    menuChoice = ""
+    while (menuChoice != "9"):
+        team1 = []
+        team2 = []
+        print ("Team 1: ")
+        for i in team1:
+            print (getName(team1[i]))
+        print ("Team 2: ")
+        for i in team2:
+            print (getName(team2[i]))
+
+        if (team1.count() > 0 && team2.count() > 0):
+            prob = player_performance_score.GetProbability(averagePPS(team1),averagePPS(team2))
+            print ("There is a " + (prob * 100) + "% chance that team 1 will beat team 2")
+
+        print ("1: Add player to team 1")
+        print ("2: Add player to team 2")
+        print ("9: Quit\n")
+        while True:
+            try:
+                menuChoice = int(input("Select menu item: "))  ##Checks if the input is an int
+            except:
+                print("Be better")  ##Make polite
+            else:  ##Always add new menu options here
+                if (menuChoice == 1):
+                    team1.append(getPlayer())
+                    break
+                elif (menuChoice == 2):
+                    team2.append(getPlayer())
+                    break
+                elif (menuChoice == 9):
+                    break
+                else:
+                    print("Be better")  ##Checks if the int is an option
 
 def ListPlayers():
     pass

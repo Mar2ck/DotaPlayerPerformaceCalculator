@@ -8,22 +8,22 @@ import json
 import data_scraper
 
 
-def GetProbability(ratingA, ratingB):
-    return 1/(1+10**((ratingB - ratingA)/400))  # if the difference is 400 the chance of winning is 10x high
+def GetProbability(ppsA, ppsB):
+    return 1/(1+10**((ppsB - ppsA)/400))  # if the difference is 400 the chance of winning is 10x high
 
 
-def CalculateRatingChange(ratingA, ratingB, winner):
+def CalculatePPSChange(ppsA, ppsB, winner):
     eloConstant = 32  # Can be changed
-    pA = GetProbability(ratingA, ratingB)
+    pA = GetProbability(ppsA, ppsB)
     pB = 1 - pA
     change = int(round(eloConstant * (1 - pA)), 0)  # Change is alwways an int
     if winner == 1:
-        ratingA += change
-        ratingB -= change
+        ppsA += change
+        ppsB -= change
     else:
-        ratingB += change
-        ratingA -= change
-    return ratingA, ratingB
+        ppsB += change
+        ppsA -= change
+    return ppsA, ppsB
 
 
 playerMatchFrequency = {}

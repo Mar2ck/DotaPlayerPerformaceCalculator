@@ -6,6 +6,7 @@ Program Frontend - CLI/GUI Interface
 import argparse
 # Local modules
 import player_performance_score
+import data_scraper
 
 
 def DisplayMenuOptions():
@@ -22,13 +23,13 @@ def SetUpMatch():
         team2 = []
         print ("Team 1: ")
         for i in team1:
-            print (getName(team1[i]))
+            print (data_scraper.getStats(team1[i])["Name"])
         print ("Team 2: ")
         for i in team2:
-            print (getName(team2[i]))
+            print (data_scraper.getStats(team2[i])["Name"])
 
-        if (team1.count() > 0 && team2.count() > 0):
-            prob = player_performance_score.GetProbability(averagePPS(team1),averagePPS(team2))
+        if (team1.count() > 0 and team2.count() > 0):
+            prob = player_performance_score.GetProbability(AveragePPS(team1),AveragePPS(team2))
             print ("There is a " + (prob * 100) + "% chance that team 1 will beat team 2")
 
         print ("1: Add player to team 1")
@@ -50,6 +51,15 @@ def SetUpMatch():
                     break
                 else:
                     print("Be better")  ##Checks if the int is an option
+
+def AveragePPS(team):
+    total = 0
+    for i in team:
+        total+=getPPS(team[i])
+    return total//i
+
+def GetPlayer(): ##Get player id from user's player selection
+    pass
 
 def ListPlayers():
     pass

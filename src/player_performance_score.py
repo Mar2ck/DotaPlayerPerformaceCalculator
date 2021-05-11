@@ -31,10 +31,12 @@ def GetPPS(playerID):
 
 
 def FillPlayerPPSDict():
+
     playerDict = {}
     allPlayers = data_scraper.ListAllPlayerIDs()
     for i in allPlayers:
-        playerDict[allPlayers[i]] = 1000
+        playerDict[i] = 1000
+
     return playerDict
 
 
@@ -48,3 +50,5 @@ def UpdatePlayerPPSDict(playerID, newPPS):
 if __name__ == "__main__":
     print(data_scraper.DictPlayerInfo(135878232))
     print(data_scraper.DictPlayerMatchStats(4967600837, 135878232))
+
+playerPPS = FillPlayerPPSDict()

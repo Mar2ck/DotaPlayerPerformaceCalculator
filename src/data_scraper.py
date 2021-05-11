@@ -70,8 +70,22 @@ def DictPlayerInfo(player_id):
     return playerInfo
 
 
-def DictPlayerMatchStats(player_id, match_id):
-    pass
+def DictPlayerMatchStats(match_id, player_id):
+    for match in matchArray:
+        if match["match_id"] == match_id:
+            # Match found
+            for player in match["players"]:
+                if player["account_id"] == player_id:
+                    # Player in match
+                    return {"kills": player["kills"],
+                            "deaths": player["deaths"],
+                            "assists": player["assists"],
+                            "xp_per_min": player["xp_per_min"],
+                            "gold_per_min": player["gold_per_min"]}
+            # Player not in match
+            raise LookupError("Player ID not found in specified Match")
+    # Match not found
+    raise LookupError("Match ID not found")
 
 
 def _DownloadMatchData():

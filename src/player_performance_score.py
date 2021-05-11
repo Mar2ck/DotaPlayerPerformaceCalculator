@@ -33,8 +33,14 @@ def GetPPS(playerID):
         playerPPS[playerID] = 1000
     return playerPPS[playerID]
 
+def InitialPPS():
+    for i in data_scraper.ListAllPlayerIDs():
+        playerPPS[i] = 1000
+
 
 #### Main ####
+InitialPPS()
 if __name__ == "__main__":
     print(data_scraper.DictPlayerInfo(135878232))
     print(data_scraper.DictPlayerMatchStats(4967600837, 135878232))
+

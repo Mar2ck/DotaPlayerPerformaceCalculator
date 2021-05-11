@@ -61,7 +61,10 @@ def DictPlayerInfo(player_id):
     playerMatches = ListMatchesFromPlayerID(player_id)
     for player in playerMatches[0]["players"]:
         if player["account_id"] == player_id:
-            playerName = player["name"]
+            if (player["name"] == None):
+                playerName = "Player" + str(player_id)
+            else:
+                playerName = player["name"]
             break
     playerInfo = {"player_id": player_id,
                   "name": playerName,

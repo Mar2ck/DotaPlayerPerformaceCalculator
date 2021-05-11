@@ -18,19 +18,25 @@ def DisplayMenuOptions():
 
 def SetUpMatch():
     menuChoice = ""
+    sortedPlayers = MergeSort(data_scraper.ListAllPlayerIDs())
+    team1 = []
+    team2 = []
     while (menuChoice != "9"):
-        team1 = []
-        team2 = []
-        print ("Team 1: ")
-        for i in team1:
-            print (data_scraper.getStats(team1[i])["Name"])
-        print ("Team 2: ")
-        for i in team2:
-            print (data_scraper.getStats(team2[i])["Name"])
 
-        if (team1.count() > 0 and team2.count() > 0):
-            prob = player_performance_score.GetProbability(AveragePPS(team1),AveragePPS(team2))
-            print ("There is a " + (prob * 100) + "% chance that team 1 will beat team 2")
+        if (len(team1) > 0 or len(team2) > 0):
+            print ("Team 1: ")
+            for i in team1:
+                ##print (data_scraper.DictPlayerInfo(i)["player_id"])
+                ##print (i)
+                print (data_scraper.DictPlayerInfo(i)["name"])
+            print ("Team 2: ")
+            for i in team2:
+                print (data_scraper.DictPlayerInfo(i)["name"])
+
+            if (len(team1) > 0 and len(team2) > 0):
+
+                prob = player_performance_score.GetProbability(AveragePPS(team1),AveragePPS(team2))
+                print ("There is a " + str(prob * 100) + "% chance that team 1 will beat team 2")
 
         print ("1: Add player to team 1")
         print ("2: Add player to team 2")
@@ -40,12 +46,20 @@ def SetUpMatch():
                 menuChoice = int(input("Select menu item: "))  ##Checks if the input is an int
             except:
                 print("Be better")  ##Make polite
-            else:  ##Always add new menu options here
+            else:
                 if (menuChoice == 1):
-                    team1.append(GetPlayer())
+                    temp = GetPlayer(sortedPlayers)
+                    if (temp != -1):
+                        team1.append(GetPlayer(sortedPlayers))
+                    else:
+                        print ("Player not found")
                     break
                 elif (menuChoice == 2):
-                    team2.append(GetPlayer())
+                    temp = GetPlayer(sortedPlayers)
+                    if (temp != -1):
+                        team2.append(GetPlayer(sortedPlayers))
+                    else:
+                        print("Player not found")
                     break
                 elif (menuChoice == 9):
                     break
@@ -55,35 +69,34 @@ def SetUpMatch():
 def AveragePPS(team):
     total = 0
     for i in team:
-        total+=player_performance_score.GetPPS(team[i])
+        total+=player_performance_score.playerPPS.get(i)
     return total//i
 
-def GetPlayer(): ##Get player id from user's player selection
-    allPlayers = MergeSort(ListPlayers())
+def GetPlayer(allPlayers): ##Get player id from user's player selection
     name = input("Please enter the player's name: ")
-    playerPos = SearchPlayers(allPlayers, name)
-    if (playerPos != -1):
-        return allPlayers[playerPos]
-    else:
-        print ("The player was not found")
-        return -1
+    playerID = SearchPlayers(allPlayers, name)
+    return playerID
 
 def ListPlayers():
     pass
 
 def SearchPlayers(array, item): ##Searches for a player based on name
-    if (len(array) == 0):
-        return -1  ##-1 means not there
+    mIndex = (len(array)) // 2
+    if (len(array) == 1):
+        if (data_scraper.DictPlayerInfo(array[mIndex])["name"] == item):
+            return array[mIndex]
+        else:
+            return -1  ##-1 means not there
 
     else:
-        mIndex = (len(array)) // 2
-        if (data_scraper.getStats(array[mIndex])["Name"] == item):
-            return mIndex  ##Returns the index of the item
+        ##mIndex = (len(array)) // 2
+        if (data_scraper.DictPlayerInfo(array[mIndex])["name"] == item):
+            return array[mIndex]  ##Returns the index of the item
         else:
-            if (item < data_scraper.getStats(array[mIndex])["Name"]):  ##Look at how I compare
-                return SearchPlayers(array[:mIndex])
+            if (item < data_scraper.DictPlayerInfo(array[mIndex])["name"]):  ##Look at how I compare
+                return SearchPlayers(array[:mIndex], item)
             else:
-                return SearchPlayers(array[mIndex:])
+                return SearchPlayers(array[mIndex:], item)
 
 
 def MergeSort(array): ##Sorts the array based on name
@@ -100,7 +113,7 @@ def MergeSort(array): ##Sorts the array based on name
         k = 0
 
         while i < len(left) and j < len(right):
-            if (data_scraper.getStats(left[i])["Name"] < data_scraper.getStats(right[j])["Name"]):  ##Look at how I compare two items when I know what the items will be
+            if (data_scraper.DictPlayerInfo(left[i])["name"] < data_scraper.DictPlayerInfo(right[j])["name"]):  ##Look at how I compare two items when I know what the items will be
                 array[k] = left[i]
                 i += 1
             else:
@@ -118,7 +131,7 @@ def MergeSort(array): ##Sorts the array based on name
             j += 1
             k += 1
 
-    print(array)  ##Remove once debuging is done
+    ##print (array)
     return array
 
 

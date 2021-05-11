@@ -42,10 +42,10 @@ def SetUpMatch():
                 print("Be better")  ##Make polite
             else:  ##Always add new menu options here
                 if (menuChoice == 1):
-                    team1.append(getPlayer())
+                    team1.append(GetPlayer())
                     break
                 elif (menuChoice == 2):
-                    team2.append(getPlayer())
+                    team2.append(GetPlayer())
                     break
                 elif (menuChoice == 9):
                     break
@@ -59,27 +59,34 @@ def AveragePPS(team):
     return total//i
 
 def GetPlayer(): ##Get player id from user's player selection
-    pass
+    allPlayers = MergeSort(ListPlayers())
+    name = input("Please enter the player's name: ")
+    playerPos = SearchPlayers(allPlayers, name)
+    if (playerPos != -1):
+        return allPlayers[playerPos]
+    else:
+        print ("The player was not found")
+        return -1
 
 def ListPlayers():
     pass
 
-def SearchPlayers(array, item):
+def SearchPlayers(array, item): ##Searches for a player based on name
     if (len(array) == 0):
         return -1  ##-1 means not there
 
     else:
         mIndex = (len(array)) // 2
-        if (array[mIndex] == item):
+        if (data_scraper.getStats(array[mIndex])["Name"] == item):
             return mIndex  ##Returns the index of the item
         else:
-            if (item < array[mIndex]):  ##Look at how I compare
+            if (item < data_scraper.getStats(array[mIndex])["Name"]):  ##Look at how I compare
                 return SearchPlayers(array[:mIndex])
             else:
                 return SearchPlayers(array[mIndex:])
 
 
-def MergeSort(array):
+def MergeSort(array): ##Sorts the array based on name
     if (len(array) > 1):
         mIndex = (len(array)) // 2
         left = array[:mIndex]
@@ -93,7 +100,7 @@ def MergeSort(array):
         k = 0
 
         while i < len(left) and j < len(right):
-            if (left[i] < right[j]):  ##Look at how I compare two items when I know what the items will be
+            if (data_scraper.getStats(left[i])["Name"] < data_scraper.getStats(right[j])["Name"]):  ##Look at how I compare two items when I know what the items will be
                 array[k] = left[i]
                 i += 1
             else:
@@ -112,6 +119,7 @@ def MergeSort(array):
             k += 1
 
     print(array)  ##Remove once debuging is done
+    return array
 
 
 #### Main ####

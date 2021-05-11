@@ -7,6 +7,8 @@ import json
 # Local modules
 import data_scraper
 
+playerPPS = {}
+
 
 def GetProbability(ppsA, ppsB):
     return 1/(1+10**((ppsB - ppsA)/400))  # if the difference is 400 the chance of winning is 10x high
@@ -27,28 +29,12 @@ def CalculatePPSChange(ppsA, ppsB, winner):
 
 
 def GetPPS(playerID):
-    return playerPPS.get(playerID)
-
-
-def FillPlayerPPSDict():
-
-    playerDict = {}
-    allPlayers = data_scraper.ListAllPlayerIDs()
-    for i in allPlayers:
-        playerDict[i] = 1000
-
-    return playerDict
-
-
-def UpdatePlayerPPSDict(playerID, newPPS):
-    playerPPS[playerID] = newPPS
-    return playerPPS
+    if playerPPS[playerID] is None:
+        playerPPS[playerID] = 1000
+    return playerPPS[playerID]
 
 
 #### Main ####
-# playerPPS = FillPlayerPPSDict()
 if __name__ == "__main__":
     print(data_scraper.DictPlayerInfo(135878232))
     print(data_scraper.DictPlayerMatchStats(4967600837, 135878232))
-
-playerPPS = FillPlayerPPSDict()

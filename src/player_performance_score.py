@@ -25,5 +25,20 @@ def CalculatePPSChange(ppsA, ppsB, winner):
         ppsA -= change
     return ppsA, ppsB
 
+def GetPPS(playerID):
+    return playerPPS.get(playerID)
 
+def FillPlayerPPSDict():
+    playerDict = {}
+    allPlayers = data_scraper.ListAllPlayerIDs()
+    for i in allPlayers:
+        playerDict[allPlayers[i]] = 1000
+    return playerDict
+
+def UpdatePlayerPPSDict(playerID, newPPS):
+    playerPPS[playerID] = newPPS
+    return playerPPS
+
+#### Main ####
 print(data_scraper.DictPlayerInfo(19672354))
+playerPPS = FillPlayerPPSDict()

@@ -55,7 +55,7 @@ def SetUpMatch():
 def AveragePPS(team):
     total = 0
     for i in team:
-        total+=getPPS(team[i])
+        total+=player_performance_score.GetPPS(team[i])
     return total//i
 
 def GetPlayer(): ##Get player id from user's player selection

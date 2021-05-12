@@ -39,7 +39,7 @@ def SetUpMatch():
             print("Team 2 is empty")
 
         if (len(team1) > 0 and len(team2) > 0):
-            prob = player_performance_score.GetProbability(AveragePPS(team1),AveragePPS(team2))
+            prob = player_performance_score.GetProbability(player_performance_score.AveragePPS(team1),player_performance_score.AveragePPS((team2))
             print ("There is a " + str(prob * 100) + "% chance that team 1 will beat team 2")
 
         print ("1: Add player to team 1")
@@ -70,11 +70,6 @@ def SetUpMatch():
                 else:
                     print("Be better")  ##Checks if the int is an option
 
-def AveragePPS(team):
-    total = 0
-    for i in team:
-        total+=player_performance_score.playerPPS.get(i)
-    return total//i
 
 def GetPlayer(allPlayers): ##Get player id from user's player selection
     name = input("Please enter the player's name: ")

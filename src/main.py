@@ -43,6 +43,8 @@ def SetUpMatch():
 
         print ("1: Add player to team 1")
         print ("2: Add player to team 2")
+        print ("3: Remove player from team 1")
+        print ("4: Remove player from team 2")
         print ("9: Quit\n")
 
         try:
@@ -58,7 +60,10 @@ def SetUpMatch():
                     if(len(team1) == 5):
                         print("Max amount of players have been added")
                     else:
-                        team1.append(temp)
+                        if (nameChecker(temp, (team1 + team2)) == False):
+                            team1.append(temp)
+                        else:
+                            print (data_scraper.DictPlayerInfo(temp)["name"] + " is already in use")
                 else:
                     print("Player not found")
             elif (menuChoice == 2):
@@ -67,11 +72,45 @@ def SetUpMatch():
                     if(len(team2) == 5):
                         print("Max amount of players have been added")
                     else:
-                        team2.append(temp)
+                        if (nameChecker(temp, (team1 + team2)) == False):
+                            team2.append(temp)
+                        else:
+                            print (data_scraper.DictPlayerInfo(temp)["name"] + " is already in use")
                 else:
                     print("Player not found")
+            elif (menuChoice == 3):
+                if(len(team1) == 0):
+                    print("Please enter a player before removing")
+                else:
+                    removePlayer(team1)
+            elif (menuChoice == 4):
+                if(len(team2) == 0):
+                    print("Please enter a player before removing")
+                else:
+                    removePlayer(team2)
             else:
                 print("Please enter a suitable input")  ##Checks if the int is an option
+
+def removePlayer(team):
+    playerName = input("Please enter the player's name: ") ##gets user input for removal name
+    counter = 0 ##counts index
+    for player in team:
+        if data_scraper.DictPlayerInfo(player)["name"] == playerName: ##checks to see names match
+            print(data_scraper.DictPlayerInfo(player)["name"] + "has been removed")
+            del team[counter]
+            return
+    print(playerName + " isn't found")##displays issue to user
+
+
+def nameChecker(playerName, team):
+
+    if(len(team) == 0):
+        return False
+    else:
+        for name in team:
+            if (name == playerName):
+                return True
+    return False
 
 def GetPlayer(allPlayers): ##Get player id from user's player selection
     name = input("Please enter the player's name: ")
@@ -97,6 +136,7 @@ def SearchPlayers(array, item): ##Searches for a player based on name
 def OutputAllPlayers():
     for x in data_scraper.ListAllPlayerIDs():
         print(data_scraper.DictPlayerInfo(x)["name"])
+    print()
 
 def MergeSort(array): ##Sorts the array based on name
     if (len(array) > 1):

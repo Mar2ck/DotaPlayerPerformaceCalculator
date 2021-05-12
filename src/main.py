@@ -52,9 +52,9 @@ def SetUpMatch():
         except:
             print("Please enter a suitable input")  ##Make polite1
         else:
-            if (menuChoice == 9):
+            if (menuChoice == 9): ##exit loop
                 break
-            elif (menuChoice == 1):
+            elif (menuChoice == 1): ## add name given
                 temp = GetPlayer(sortedPlayers)
                 if (temp != -1):
                     if(len(team1) == 5):
@@ -66,7 +66,7 @@ def SetUpMatch():
                             print (data_scraper.DictPlayerInfo(temp)["name"] + " is already in use")
                 else:
                     print("Player not found")
-            elif (menuChoice == 2):
+            elif (menuChoice == 2):## add name given
                 temp = GetPlayer(sortedPlayers)
                 if (temp != -1):
                     if(len(team2) == 5):
@@ -78,12 +78,12 @@ def SetUpMatch():
                             print (data_scraper.DictPlayerInfo(temp)["name"] + " is already in use")
                 else:
                     print("Player not found")
-            elif (menuChoice == 3):
+            elif (menuChoice == 3):#remove name given if found
                 if(len(team1) == 0):
                     print("Please enter a player before removing")
                 else:
                     removePlayer(team1)
-            elif (menuChoice == 4):
+            elif (menuChoice == 4): ##remove name given if found
                 if(len(team2) == 0):
                     print("Please enter a player before removing")
                 else:
@@ -104,10 +104,10 @@ def removePlayer(team):
 
 def nameChecker(playerName, team):
 
-    if(len(team) == 0):
+    if(len(team) == 0): ##return if the list is empty
         return False
     else:
-        for name in team:
+        for name in team: ## checks all inputted names to see if it is there already
             if (name == playerName):
                 return True
     return False

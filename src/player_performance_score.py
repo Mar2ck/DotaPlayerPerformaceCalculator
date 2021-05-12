@@ -72,15 +72,16 @@ def SetPlayersNewPPS():
             else:
                 team2.append(player["account_id"])
         changeInPPS = 5 * (CalculatePPSChange(AveragePPS(team1), AveragePPS(team2)))
-        weight = 0.2  # Update with function
         if match["radiant_win"]:
             for player in match["players"]:
+                weight = PlayerContributionPercentage(match["match_id"], player["account_id"])
                 if player["isRadiant"]:
                     playerPPS[player["account_id"]] += changeInPPS * weight
                 else:
                     playerPPS[player["account_id"]] -= changeInPPS * weight
         else:
             for player in match["players"]:
+                weight = PlayerContributionPercentage(match["match_id"], player["account_id"])
                 if player["isRadiant"]:
                     playerPPS[player["account_id"]] -= changeInPPS * weight
                 else:

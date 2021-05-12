@@ -88,7 +88,9 @@ def SearchPlayers(array, item): ##Searches for a player based on name
                 return SearchPlayers(array[:mIndex], item)
             else:
                 return SearchPlayers(array[mIndex:], item)
-
+def OutputAllPlayers():
+    for x in data_scraper.ListAllPlayerIDs():
+        print(data_scraper.DictPlayerInfo(x)["name"])
 
 def MergeSort(array): ##Sorts the array based on name
     if (len(array) > 1):
@@ -137,7 +139,7 @@ while True:
         if (menuChoice == 1):
             SetUpMatch()
         elif (menuChoice == 2):
-            pass
+            OutputAllPlayers()
         elif (menuChoice == 9):
             break
         else:

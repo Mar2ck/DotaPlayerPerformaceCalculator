@@ -17,15 +17,8 @@ def GetProbability(ppsA, ppsB):
 def CalculatePPSChange(ppsA, ppsB):
     eloConstant = 32  # Can be changed
     pA = GetProbability(ppsA, ppsB)
-    pB = 1 - pA
     temp = round(eloConstant * (1 - pA), 0)
     change = int(temp)  # Change is always an int
-    #if winner == 1:
-       # ppsA += change
-       # ppsB -= change
-    #else:
-        #ppsB += change
-        #ppsA -= change
     return change
 
 
@@ -52,19 +45,23 @@ def SetPlayersNewPPS():
         i = 0
         for player in match["players"]:
             if (player["isRadiant"] == True):
-                #print(player["account_id"])
                 team1.append(player["account_id"])
             else:
                 team2.append(player["account_id"])
-        AveragePPS(team1)
         changeInPPS = 5 * (CalculatePPSChange(AveragePPS(team1), AveragePPS(team2)))
+        weight = 0.2  ##Update with function
         if (match["radiant_win"] == True):
             for player in match["players"]:
-                weight = 0.2  ##Update with function
                 if (player["isRadiant"] == True):
                     playerPPS[player["account_id"]] += changeInPPS * weight
                 else:
                     playerPPS[player["account_id"]] -= changeInPPS * weight
+        else:
+            for player in match["players"]:
+                if (player["isRadiant"] == True):
+                    playerPPS[player["account_id"]] -= changeInPPS * weight
+                else:
+                    playerPPS[player["account_id"]] += changeInPPS * weight
 
 
 #### Main ####

@@ -82,7 +82,6 @@ def SearchPlayers(array, item): ##Searches for a player based on name
             return -1  ##-1 means not there
 
     else:
-        ##mIndex = (len(array)) // 2
         if (data_scraper.DictPlayerInfo(array[mIndex])["name"] == item):
             return array[mIndex]  ##Returns the index of the item
         else:

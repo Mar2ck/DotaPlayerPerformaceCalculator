@@ -39,7 +39,7 @@ def SetUpMatch():
             print("Team 2 is empty")
 
         if (len(team1) > 0 and len(team2) > 0):
-            prob = player_performance_score.GetProbability(player_performance_score.AveragePPS(team1),player_performance_score.AveragePPS((team2))
+            prob = player_performance_score.GetProbability(player_performance_score.AveragePPS(team1),player_performance_score.AveragePPS((team2)))
             print ("There is a " + str(prob * 100) + "% chance that team 1 will beat team 2")
 
         print ("1: Add player to team 1")

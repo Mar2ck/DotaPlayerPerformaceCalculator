@@ -57,6 +57,18 @@ def ListMatchesFromPlayerID(player_id):
     return matchArraySelected
 
 
+def ListPlayersinMatch(match_id):
+    playerIDArray = []
+    for match in matchArray:
+        if match["match_id"] == match_id:
+            # Match found
+            for player in match["players"]:
+                playerIDArray.append(player["account_id"])
+            return playerIDArray
+    # Match not found
+    raise LookupError("Couldn't find match id")
+
+
 def DictPlayerInfo(player_id):
     playerMatches = ListMatchesFromPlayerID(player_id)
     for player in playerMatches[0]["players"]:

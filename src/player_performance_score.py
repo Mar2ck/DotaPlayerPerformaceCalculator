@@ -12,13 +12,22 @@ playerPPS = {}
 
 def PlayerContributionScore(match_id, player_id):
     score = 0.0
+    killWorth = 200
     playerMatchStats = data_scraper.DictPlayerMatchStats(match_id, player_id)
-    score += playerMatchStats["kills"] * 200
-    score += playerMatchStats["assists"] * 100
-    score += playerMatchStats["deaths"] * -200
+    score += playerMatchStats["kills"] * killWorth
+    score += playerMatchStats["assists"] * killWorth * 0.5
+    score += playerMatchStats["deaths"] * killWorth * -1
     score += playerMatchStats["xp_per_min"] * 1
     score += playerMatchStats["gold_per_min"] * 1
     return score
+
+
+def PlayerContributionPercentage(match_id, player_id):
+    playersArray = data_scraper.ListPlayersinMatch(match_id)
+    teamContributionTotal = 0.0
+    for player_id in playersArray:
+        teamContributionTotal += PlayerContributionScore(match_id, player_id)
+    return PlayerContributionScore(match_id, player_id)/teamContributionTotal
 
 
 def GetProbability(ppsA, ppsB):
@@ -86,5 +95,5 @@ SetPlayersNewPPS()
 if __name__ == "__main__":
     print(data_scraper.DictPlayerInfo(135878232))
     print(data_scraper.DictPlayerMatchStats(4967600837, 135878232))
-    print(PlayerContributionScore(4967600837, 135878232))
+    print(PlayerContributionPercentage(4967600837, 135878232))
 

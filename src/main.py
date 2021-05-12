@@ -15,7 +15,6 @@ def DisplayMenuOptions():
         print(str(i + 1) + ": " + options[i])
     print("9: Quit\n")  ##Always outputs quit as 9 // Make sure no more than 8 options!
 
-
 def SetUpMatch():
     menuChoice = ""
     print ("Sorting all players...")
@@ -45,31 +44,29 @@ def SetUpMatch():
         print ("1: Add player to team 1")
         print ("2: Add player to team 2")
         print ("9: Quit\n")
-        while True:
-            try:
-                menuChoice = int(input("Select menu item: "))  ##Checks if the input is an int
-            except:
-                print("Be better")  ##Make polite
-            else:
-                if (menuChoice == 1):
-                    temp = GetPlayer(sortedPlayers)
-                    if (temp != -1):
-                        team1.append(temp)
-                    else:
-                        print ("Player not found")
-                    break
-                elif (menuChoice == 2):
-                    temp = GetPlayer(sortedPlayers)
-                    if (temp != -1):
-                        team2.append(temp)
-                    else:
-                        print("Player not found")
-                    break
-                elif (menuChoice == 9):
-                    break
-                else:
-                    print("Be better")  ##Checks if the int is an option
 
+        try:
+            menuChoice = int(input("Select menu item: "))  ##Checks if the input is an int
+
+        except:
+            print("Be better")  ##Make polite1
+        else:
+            if (menuChoice == 9):
+                break
+            elif (menuChoice == 1):
+                temp = GetPlayer(sortedPlayers)
+                if (temp != -1):
+                    team1.append(temp)
+                else:
+                    print("Player not found")
+            elif (menuChoice == 2):
+                temp = GetPlayer(sortedPlayers)
+                if (temp != -1):
+                    team2.append(temp)
+                else:
+                    print("Player not found")
+            else:
+                print("Be better")  ##Checks if the int is an option
 
 def GetPlayer(allPlayers): ##Get player id from user's player selection
     name = input("Please enter the player's name: ")
@@ -132,10 +129,11 @@ def MergeSort(array): ##Sorts the array based on name
 
 
 #### Main ####
-DisplayMenuOptions()
+
 while True:
+    DisplayMenuOptions()
     try:
-        menuChoice = int(input("Select menu item: "))  ##Checks if the input is an int
+        menuChoice = int(input("Select main menu item: "))  ##Checks if the input is an int
     except:
         print("Be better")  ##Make polite
     else:  ##Always add new menu options here

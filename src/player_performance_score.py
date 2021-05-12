@@ -18,7 +18,8 @@ def CalculatePPSChange(ppsA, ppsB):
     eloConstant = 32  # Can be changed
     pA = GetProbability(ppsA, ppsB)
     pB = 1 - pA
-    change = int(round(eloConstant * (1 - pA)), 0)  # Change is alwways an int
+    temp = round(eloConstant * (1 - pA), 0)
+    change = int(temp)  # Change is always an int
     #if winner == 1:
        # ppsA += change
        # ppsB -= change
@@ -46,26 +47,31 @@ def AveragePPS(team):
 def SetPlayersNewPPS():
     print ("Updating player PPS...")
     for match in data_scraper.matchArray:
-        team1 = team2 = []
+        team1 = []
+        team2 = []
+        i = 0
         for player in match["players"]:
             if (player["isRadiant"] == True):
-                team1.append(player)
+                #print(player["account_id"])
+                team1.append(player["account_id"])
             else:
-                team2.append(player)
-
-        changeInPPS = 5*(CalculatePPSChange(AveragePPS(team1), AveragePPS(team2)))
+                team2.append(player["account_id"])
+        AveragePPS(team1)
+        changeInPPS = 5 * (CalculatePPSChange(AveragePPS(team1), AveragePPS(team2)))
         if (match["radiant_win"] == True):
             for player in match["players"]:
-                weight = 0.2 ##Update with function
+                weight = 0.2  ##Update with function
                 if (player["isRadiant"] == True):
-                    playerPPS[player["account_id"]] += changeInPPS*weight
+                    playerPPS[player["account_id"]] += changeInPPS * weight
                 else:
-                    playerPPS[player["account_id"]] -= changeInPPS*weight
+                    playerPPS[player["account_id"]] -= changeInPPS * weight
 
 
 #### Main ####
 InitialPPS()
 SetPlayersNewPPS()
+#for i in data_scraper.ListAllPlayerIDs():
+#    print(playerPPS[i])
 if __name__ == "__main__":
     print(data_scraper.DictPlayerInfo(135878232))
     print(data_scraper.DictPlayerMatchStats(4967600837, 135878232))

@@ -55,13 +55,19 @@ def SetUpMatch():
             elif (menuChoice == 1):
                 temp = GetPlayer(sortedPlayers)
                 if (temp != -1):
-                    team1.append(temp)
+                    if(len(team1) == 5):
+                        print("Max amount of players have been added")
+                    else:
+                        team1.append(temp)
                 else:
                     print("Player not found")
             elif (menuChoice == 2):
                 temp = GetPlayer(sortedPlayers)
                 if (temp != -1):
-                    team2.append(temp)
+                    if(len(team2) == 5):
+                        print("Max amount of players have been added")
+                    else:
+                        team2.append(temp)
                 else:
                     print("Player not found")
             else:

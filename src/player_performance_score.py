@@ -44,7 +44,8 @@ def AveragePPS(team):
     return total//i
 
 def SetPlayersNewPPS():
-    for match in data_scraper.matchArray():
+    print ("Updating player PPS...")
+    for match in data_scraper.matchArray:
         team1 = team2 = []
         for player in match["players"]:
             if (player["isRadiant"] == True):
@@ -64,6 +65,7 @@ def SetPlayersNewPPS():
 
 #### Main ####
 InitialPPS()
+SetPlayersNewPPS()
 if __name__ == "__main__":
     print(data_scraper.DictPlayerInfo(135878232))
     print(data_scraper.DictPlayerMatchStats(4967600837, 135878232))

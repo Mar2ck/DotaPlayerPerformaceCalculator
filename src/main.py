@@ -47,9 +47,8 @@ def SetUpMatch():
 
         try:
             menuChoice = int(input("Select menu item: "))  ##Checks if the input is an int
-
         except:
-            print("Be better")  ##Make polite1
+            print("Please enter a suitable input")  ##Make polite1
         else:
             if (menuChoice == 9):
                 break
@@ -66,7 +65,7 @@ def SetUpMatch():
                 else:
                     print("Player not found")
             else:
-                print("Be better")  ##Checks if the int is an option
+                print("Please enter a suitable input")  ##Checks if the int is an option
 
 def GetPlayer(allPlayers): ##Get player id from user's player selection
     name = input("Please enter the player's name: ")
@@ -126,7 +125,6 @@ def MergeSort(array): ##Sorts the array based on name
     ##print (array)
     return array
 
-
 #### Main ####
 
 while True:
@@ -134,7 +132,7 @@ while True:
     try:
         menuChoice = int(input("Select main menu item: "))  ##Checks if the input is an int
     except:
-        print("Be better")  ##Make polite
+        print("Please enter a suitable input")  ##Make polite
     else:  ##Always add new menu options here
         if (menuChoice == 1):
             SetUpMatch()
@@ -143,5 +141,5 @@ while True:
         elif (menuChoice == 9):
             break
         else:
-            print("Be better")
+            print("Please enter a suitable input")
 print("Thanks for coming")

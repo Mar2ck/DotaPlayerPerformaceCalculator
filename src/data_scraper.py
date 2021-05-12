@@ -84,7 +84,8 @@ def DictPlayerMatchStats(match_id, player_id):
                             "deaths": player["deaths"],
                             "assists": player["assists"],
                             "xp_per_min": player["xp_per_min"],
-                            "gold_per_min": player["gold_per_min"]}
+                            "gold_per_min": player["gold_per_min"],
+                            "is_radiant": player["isRadiant"]}
             # Player not in match
             raise LookupError("Player ID not found in specified Match")
     # Match not found

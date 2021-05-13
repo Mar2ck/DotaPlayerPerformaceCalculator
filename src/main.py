@@ -10,7 +10,7 @@ import data_scraper
 
 
 def DisplayMenuOptions():
-    options = ["Set up match", "Look at players"]  ##Always add new menu options here
+    options = ["Set up match", "List all players"]  ##Always add new menu options here
     for i in range(len(options)):  ##Prints out all the options
         print(str(i + 1) + ": " + options[i])
     print("9: Quit\n")  ##Always outputs quit as 9 // Make sure no more than 8 options!
@@ -135,7 +135,7 @@ def SearchPlayers(array, item): ##Searches for a player based on name
 
 def OutputAllPlayers():
     for x in data_scraper.ListAllPlayerIDs(): ##Loops through every player
-        print(data_scraper.DictPlayerInfo(x)["name"]) ##Outputs the player's names
+        print(data_scraper.DictPlayerInfo(x)["name"] + ": " + str(int(player_performance_score.playerPPS[x]))) ##Outputs the player's names
     print()
 
 def MergeSort(array): ##Sorts the array based on name

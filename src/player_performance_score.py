@@ -59,6 +59,12 @@ def AveragePPS(team):
         total += playerPPS.get(i) ##Adds the player's PPS to the total
     return total//i ##Returns the mean average PPS
 
+def TotalPPS(team):
+    total = 0
+    for i in team:  ##Loops through each player in the team
+        total += playerPPS.get(i)  ##Adds the player's PPS to the total
+    return total  ##Returns the total PPS
+
 
 def SetPlayersNewPPS():
     print ("Updating player PPS...")

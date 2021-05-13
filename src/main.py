@@ -178,7 +178,7 @@ while True:
     DisplayMenuOptions() ##Displays the main menu options
     try:
         menuChoice = int(input("Select main menu item: "))  ##Checks if the input is an integer
-    except:
+    except ValueError:
         print("Please enter a suitable input")
     else:  ##Always add new menu options here
         if (menuChoice == 1):

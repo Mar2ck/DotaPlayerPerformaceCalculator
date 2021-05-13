@@ -96,6 +96,7 @@ def removePlayer(team):
     counter = 0 ##Counts index
     for player in team: ##Loops for each player
         if data_scraper.DictPlayerInfo(player)["name"] == playerName: ##Checks if names match
+            counter = counter + 1
             print(data_scraper.DictPlayerInfo(player)["name"] + " has been removed")
             del team[counter] ##Removes the player from the team
             return

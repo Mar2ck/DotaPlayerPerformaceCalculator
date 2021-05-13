@@ -19,7 +19,7 @@ def SetUpMatch():
     menuChoice = ""
     print ("Sorting all players...")
     sortedPlayers = MergeSort(data_scraper.ListAllPlayerIDs())
-    print ("Sorted " + str(len(data_scraper.ListAllPlayerIDs())) + "players total")
+    print ("Sorted " + str(len(data_scraper.ListAllPlayerIDs())) + " players total")
     team1 = []
     team2 = []
     while (menuChoice != "9"):
@@ -96,7 +96,7 @@ def removePlayer(team):
     counter = 0 ##counts index
     for player in team:
         if data_scraper.DictPlayerInfo(player)["name"] == playerName: ##checks to see names match
-            print(data_scraper.DictPlayerInfo(player)["name"] + "has been removed")
+            print(data_scraper.DictPlayerInfo(player)["name"] + " has been removed")
             del team[counter]
             return
     print(playerName + " isn't found")##displays issue to user

@@ -35,18 +35,11 @@ def GetProbability(ppsA, ppsB):
 
 
 def CalculatePPSChange(ppsA, ppsB):
-    eloConstant = 32  ##Elo constant can be altered
+    ppsConstant = 32  ##pps constant can be altered
     pA = GetProbability(ppsA, ppsB) ##Gets the probability of player A winning
-    temp = round(eloConstant * (1 - pA), 0) ##Converts the change into an integer
+    temp = round(ppsConstant * (1 - pA), 0) ##Converts the change into an integer
     change = int(temp)  ##Change is always an int
     return change
-
-
-def GetPPS(playerID):
-    if playerPPS[playerID] is None:
-        playerPPS[playerID] = 1000
-    return playerPPS[playerID]
-
 
 def InitialPPS():
     for i in data_scraper.ListAllPlayerIDs(): ##Loops through every player
